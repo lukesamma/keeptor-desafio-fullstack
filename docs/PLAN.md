@@ -9,7 +9,7 @@ Status legend: `⬜` pendente · `🔄` em andamento · `✅` concluído
 | 1 | Setup e baseline | ✅ | Ambiente `10/10` smoke; `.env` coerente |
 | 2 | Análise da arquitetura | ✅ | Análise no chat + este PLAN/PRD |
 | 3 | Modelagem do banco | ✅ | ADR-001 aprovado (documento) |
-| 4 | Migration | ⬜ | `0003_*.sql` + volume no `docker-compose.yml` |
+| 4 | Migration | ✅ | `0003_*.sql` + volume no `docker-compose.yml` |
 | 5 | Design System | ⬜ | Wrappers em `design-system/` + ADR-002 |
 | 6 | Listagem | ⬜ | Tabela + estados vazio/loading/erro |
 | 7 | Cadastro | ⬜ | Formulário create + persistência |
@@ -43,10 +43,10 @@ Status legend: `⬜` pendente · `🔄` em andamento · `✅` concluído
 
 ## 4. Migration
 
-- [ ] Criar `backend/migrations/0003_parceiros.sql` (nome final conforme ADR-001).
-- [ ] Adicionar bind de volume em `backend/docker-compose.yml` (padrão `0001`/`0002`).
-- [ ] `npm run reset` + `npm run smoke`.
-- [ ] Validar constraints no Studio/psql (insert inválido falha).
+- [x] Criar `backend/migrations/0003_parceiros.sql` (nome final conforme ADR-001).
+- [x] Adicionar bind de volume em `backend/docker-compose.yml` (padrão `0001`/`0002`).
+- [x] `npm run reset` + `npm run smoke` (10/10).
+- [x] Validar constraints no psql (insert OK; CNPJ duplicado → `parceiro_cnpj_unico`).
 
 ## 5. Design System
 

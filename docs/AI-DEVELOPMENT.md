@@ -37,7 +37,7 @@ Se isso mudar, registrar abaixo na seção **Histórico**.
 | Baseline (`smoke` 10/10) | Primeiro | ✅ Executado — 10/10 OK |
 | Análise sem alterar código | Sim | ✅ Relatório de arquitetura no chat |
 | Documentação (`docs/`) | Antes da migration | ✅ PRD, PLAN, ADR-001, ADR-002, AI-DEVELOPMENT |
-| Migration `0003` | Após ADR-001 | ⬜ Pendente |
+| Migration `0003` | Após ADR-001 | ✅ `0003_parceiros.sql` + reset + smoke |
 | Design system | Após ADR-002 | ⬜ Pendente |
 | Feature parceiros | Vertical (cadastro → edição → lista) | ⬜ Pendente |
 
@@ -73,6 +73,7 @@ O desenvolvedor deve:
 | Data | Alteração |
 |------|-----------|
 | 2026-03-13 | Versão inicial após análise do repo e criação dos documentos em `docs/` |
+| 2026-03-14 | Migration `0003_parceiros.sql`, volume no compose, reset e smoke 10/10 |
 
 ---
 
