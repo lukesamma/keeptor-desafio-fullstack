@@ -49,3 +49,15 @@ por dezenas de telas.
 | `useAppToast()` | Feedback global (success / error / …) |
 
 Campos compartilham props de `AppFieldProps`: `label`, `error`, `hint`, `disabled`, `loading`, `required`, `name`, `id`.
+
+## Storybook
+
+Stories em `stories/` (mesma pasta do design system):
+
+```bash
+cd frontend && npm run storybook
+```
+
+Build estático: `npm run build-storybook` → `storybook-static/`.
+
+PrimeVue e Tailwind são configurados em `.storybook/preview.ts`, espelhando `src/main.ts`.

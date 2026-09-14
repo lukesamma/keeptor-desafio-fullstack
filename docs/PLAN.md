@@ -17,7 +17,7 @@ Status legend: `⬜` pendente · `🔄` em andamento · `✅` concluído
 | 9 | Validações | ✅ | Zod no frontend + erros de constraint (CNPJ etc.) |
 | 10 | Responsividade | ✅ | Grid/form em mobile e desktop |
 | 11 | Acessibilidade | ✅ | Labels, `aria-*`, foco, alertas |
-| 12 | Testes | ⬜ | Opcional: smoke manual + lint/build; Vitest se couber |
+| 12 | Testes | ✅ | `npm run check` + Vitest; smoke separado |
 | 13 | Documentação | 🔄 | PRD, PLAN, ADRs, AI-DEVELOPMENT |
 | 14 | Revisão final | ⬜ | README entrega, commits, smoke, checklist DoD |
 
@@ -96,8 +96,11 @@ Status legend: `⬜` pendente · `🔄` em andamento · `✅` concluído
 
 ## 12. Testes
 
-- [ ] Mínimo: `npm run lint`, `typecheck`, `build`, `npm run smoke`.
-- [ ] Opcional: Vitest em validadores puros; Playwright em fluxo login → cadastro (se tempo).
+- [x] `npm run check` na raiz: lint, typecheck, `vitest run`, build do frontend.
+- [x] Vitest: `cnpj`, `partnerValidation`, `apiError` (`frontend/src/**/*.test.ts`).
+- [x] `npm run smoke` (10 passos) — ambiente Docker; rodar antes de entregar.
+- [x] Storybook (`src/design-system/stories/`, `npm run storybook`).
+- [x] Playwright E2E: login → listagem → novo parceiro (`frontend/e2e/`, requer `npm run up` + smoke).
 
 ## 13. Documentação
 

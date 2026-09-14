@@ -11,7 +11,11 @@
     "logs": "node scripts/dev.mjs logs",
     "psql": "node scripts/dev.mjs psql",
     "status": "node scripts/dev.mjs status",
-    "smoke": "node scripts/smoke.mjs"
+    "smoke": "node scripts/smoke.mjs",
+    "check": "node scripts/check.mjs",
+    "playwright:install": "npm run playwright:install --prefix frontend",
+    "test:e2e": "npm run test:e2e --prefix frontend",
+    "storybook": "npm run storybook --prefix frontend"
   },
   "engines": {
     "node": ">=20"
