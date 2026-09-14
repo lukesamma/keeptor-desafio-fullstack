@@ -1,5 +1,6 @@
 import { supabase } from '@/lib/supabase'
 import type { ParceiroListagem } from '@/types/partner'
+import type { ParceiroInsertPayload } from '@/types/partnerForm'
 
 import { ApiError, mensagemErroSupabase } from './apiError'
 
@@ -30,4 +31,12 @@ export async function listarParceiros(): Promise<ParceiroListagem[]> {
   }
 
   return (data ?? []) as unknown as ParceiroListagem[]
+}
+
+export async function criarParceiro(payload: ParceiroInsertPayload): Promise<void> {
+  const { error } = await supabase.from('parceiro').insert(payload)
+
+  if (error) {
+    throw new ApiError(mensagemErroSupabase(error), error.code)
+  }
 }

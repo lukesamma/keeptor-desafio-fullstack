@@ -12,7 +12,7 @@ Status legend: `⬜` pendente · `🔄` em andamento · `✅` concluído
 | 4 | Migration | ✅ | `0003_*.sql` + volume no `docker-compose.yml` |
 | 5 | Design System | ✅ | Wrappers em `design-system/` + ADR-002 |
 | 6 | Listagem | ✅ | Tabela + estados vazio/loading/erro |
-| 7 | Cadastro | ⬜ | Formulário create + persistência |
+| 7 | Cadastro | ✅ | Formulário create + persistência |
 | 8 | Edição | ⬜ | Load by id + update |
 | 9 | Validações | ⬜ | Frontend + erros de constraint (CNPJ etc.) |
 | 10 | Responsividade | ⬜ | Grid/form em mobile e desktop |
@@ -64,10 +64,10 @@ Status legend: `⬜` pendente · `🔄` em andamento · `✅` concluído
 
 ## 7. Cadastro
 
-- [ ] Rota ou modo `novo` (ex.: `/parceiros/novo`).
-- [ ] Formulário com todos os campos do PRD.
-- [ ] UF → carregar municípios filtrados (`uf_id`).
-- [ ] Submit com loading e prevenção de duplo envio.
+- [x] Rota ou modo `novo` (`/parceiros/novo` → `PartnerForm.vue`).
+- [x] Formulário com todos os campos do PRD.
+- [x] UF → carregar municípios filtrados (`geoService` + `useUfMunicipio`).
+- [x] Submit com loading e prevenção de duplo envio (`criarParceiro`).
 
 ## 8. Edição
 

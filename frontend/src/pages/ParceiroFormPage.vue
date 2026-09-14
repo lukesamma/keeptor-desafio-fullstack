@@ -1,23 +1,35 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { RouterLink, useRoute } from 'vue-router'
+import { RouterLink, useRoute, useRouter } from 'vue-router'
 
+import PartnerForm from '@/features/partners/PartnerForm.vue'
 import { AppButton } from '@/design-system'
 
 const route = useRoute()
+const router = useRouter()
 
-const titulo = computed(() =>
-  route.name === 'parceiros-editar' ? 'Editar parceiro' : 'Novo parceiro',
-)
+const isEdicao = computed(() => route.name === 'parceiros-editar')
+
+function aoSalvar() {
+  void router.push({ name: 'parceiros' })
+}
 </script>
 
 <template>
-  <div class="space-y-4">
+  <PartnerForm
+    v-if="!isEdicao"
+    @success="aoSalvar"
+  />
+
+  <div
+    v-else
+    class="space-y-4"
+  >
     <h1 class="text-xl font-semibold tracking-tight text-slate-900">
-      {{ titulo }}
+      Editar parceiro
     </h1>
     <p class="text-sm text-slate-500">
-      O formulário completo será implementado na fase 7 (cadastro) e fase 8 (edição).
+      A edição será implementada na fase 8 do plano.
     </p>
     <RouterLink :to="{ name: 'parceiros' }">
       <AppButton

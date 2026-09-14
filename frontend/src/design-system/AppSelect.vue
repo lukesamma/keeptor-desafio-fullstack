@@ -1,4 +1,4 @@
-<script setup lang="ts" generic="T = unknown">
+<script setup lang="ts">
 import Select from 'primevue/select'
 
 import AppFieldLayout from './AppFieldLayout.vue'
@@ -7,8 +7,8 @@ import type { AppFieldProps } from './fieldTypes'
 withDefaults(
   defineProps<
     AppFieldProps & {
-      modelValue?: T | null
-      options: T[]
+      modelValue?: string | number | boolean | null
+      options: Record<string, unknown>[]
       optionLabel?: string
       optionValue?: string
       placeholder?: string
@@ -27,7 +27,7 @@ withDefaults(
 )
 
 const emit = defineEmits<{
-  'update:modelValue': [value: T | null]
+  'update:modelValue': [value: string | number | boolean | null]
 }>()
 </script>
 
