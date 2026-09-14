@@ -28,6 +28,7 @@ withDefaults(
 
 const emit = defineEmits<{
   'update:modelValue': [value: string | number | boolean | null]
+  blur: []
 }>()
 </script>
 
@@ -56,6 +57,7 @@ const emit = defineEmits<{
       :aria-describedby="describedBy"
       :aria-required="required || undefined"
       @update:model-value="emit('update:modelValue', $event)"
+      @blur="emit('blur')"
     />
   </AppFieldLayout>
 </template>

@@ -14,7 +14,7 @@ Status legend: `⬜` pendente · `🔄` em andamento · `✅` concluído
 | 6 | Listagem | ✅ | Tabela + estados vazio/loading/erro |
 | 7 | Cadastro | ✅ | Formulário create + persistência |
 | 8 | Edição | ✅ | Load by id + update |
-| 9 | Validações | ⬜ | Frontend + erros de constraint (CNPJ etc.) |
+| 9 | Validações | ✅ | Zod no frontend + erros de constraint (CNPJ etc.) |
 | 10 | Responsividade | ⬜ | Grid/form em mobile e desktop |
 | 11 | Acessibilidade | ⬜ | Labels, `aria-*`, foco, alertas |
 | 12 | Testes | ⬜ | Opcional: smoke manual + lint/build; Vitest se couber |
@@ -77,9 +77,9 @@ Status legend: `⬜` pendente · `🔄` em andamento · `✅` concluído
 
 ## 9. Validações
 
-- [ ] Validação imediata no frontend (campos obrigatórios, e-mail, CNPJ, CEP).
-- [ ] Mapear códigos PostgREST/Postgres (unique violation, check violation) para mensagens em português.
-- [ ] Garantir que regras críticas não dependem só do client.
+- [x] Zod em `schemas/partnerFormSchema.ts`; blur/submit no `PartnerForm`.
+- [x] `apiError.ts`: `23505` / `23514` + nomes de constraint → mensagens em português e campo.
+- [x] Regras críticas no Postgres (`0003_parceiros.sql`); Zod espelha para UX.
 
 ## 10. Responsividade
 

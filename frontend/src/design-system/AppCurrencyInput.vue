@@ -24,6 +24,7 @@ const props = withDefaults(
 
 const emit = defineEmits<{
   'update:modelValue': [value: number | null]
+  blur: []
 }>()
 
 /** Dígitos = centavos (ex.: "12345" → R$ 123,45). Evita o InputNumber em currency, que trava edição no fim do campo. */
@@ -103,6 +104,7 @@ function onUpdate(raw: string | undefined) {
       :aria-describedby="describedBy"
       :aria-required="required || undefined"
       @update:model-value="onUpdate"
+      @blur="emit('blur')"
     />
   </AppFieldLayout>
 </template>

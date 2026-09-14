@@ -21,6 +21,7 @@ withDefaults(
 
 const emit = defineEmits<{
   'update:modelValue': [value: Date | null]
+  blur: []
 }>()
 
 function onDateChange(value: Date | (Date | null)[] | Date[] | null | undefined) {
@@ -63,6 +64,7 @@ function onDateChange(value: Date | (Date | null)[] | Date[] | null | undefined)
       :aria-describedby="describedBy"
       :aria-required="required || undefined"
       @update:model-value="onDateChange"
+      @blur="emit('blur')"
     />
   </AppFieldLayout>
 </template>

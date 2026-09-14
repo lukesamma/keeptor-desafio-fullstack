@@ -16,13 +16,18 @@ import {
   MASK_TELEFONE,
   useAppToast,
 } from '@/design-system'
-import { ApiError, isErroCnpjDuplicado } from '@/services/apiError'
+import {
+  ApiError,
+  camposErroParceiroApi,
+  isErroCnpjDuplicado,
+} from '@/services/apiError'
 import {
   atualizarParceiro,
   buscarParceiroPorId,
   criarParceiro,
 } from '@/services/partnersService'
 import {
+  type ParceiroFormModel,
   criarParceiroFormVazio,
   parceiroFormParaInsert,
   parceiroFormParaUpdate,
@@ -30,6 +35,7 @@ import {
 } from '@/types/partnerForm'
 import {
   type ErrosParceiroForm,
+  validarCampoParceiroForm,
   validarParceiroForm,
 } from '@/utils/partnerValidation'
 
@@ -108,6 +114,20 @@ function limparErro(campo: keyof ErrosParceiroForm) {
   erros.value = copia
 }
 
+function revalidarCampo(campo: keyof ParceiroFormModel) {
+  const mensagem = validarCampoParceiroForm(form, campo)
+  if (mensagem) {
+    erros.value = { ...erros.value, [campo]: mensagem }
+    return
+  }
+  limparErro(campo)
+}
+
+function aoSairCampo(campo: keyof ParceiroFormModel) {
+  revalidarCampo(campo)
+}
+
+
 async function salvar() {
   if (enviando.value) return
 
@@ -133,9 +153,19 @@ async function salvar() {
     }
     emit('success')
   } catch (e) {
-    if (e instanceof ApiError && isErroCnpjDuplicado(e)) {
-      erros.value = { ...erros.value, cnpj: e.message }
-      toast.error('CNPJ já cadastrado', e.message)
+    if (e instanceof ApiError) {
+      const camposApi = camposErroParceiroApi(e)
+      if (Object.keys(camposApi).length > 0) {
+        erros.value = { ...erros.value, ...camposApi }
+        toast.warn('Revise os campos', e.message)
+      } else if (isErroCnpjDuplicado(e)) {
+        erros.value = { ...erros.value, cnpj: e.message }
+        toast.error('CNPJ já cadastrado', e.message)
+      } else {
+        erroGeral.value =
+          e instanceof Error ? e.message : 'Não foi possível salvar o parceiro.'
+        toast.error('Falha ao salvar', erroGeral.value)
+      }
     } else {
       erroGeral.value =
         e instanceof Error ? e.message : 'Não foi possível salvar o parceiro.'
@@ -239,6 +269,7 @@ async function salvar() {
             :disabled="enviando"
             :error="erros.razao_social"
             @update:model-value="limparErro('razao_social')"
+            @blur="aoSairCampo('razao_social')"
           />
           <AppInput
             v-model="form.nome_fantasia"
@@ -248,6 +279,7 @@ async function salvar() {
             :disabled="enviando"
             :error="erros.nome_fantasia"
             @update:model-value="limparErro('nome_fantasia')"
+            @blur="aoSairCampo('nome_fantasia')"
           />
           <AppMaskedInput
             v-model="form.cnpj"
@@ -258,6 +290,7 @@ async function salvar() {
             :disabled="enviando || carregandoRegistro"
             :error="erros.cnpj"
             @update:model-value="limparErro('cnpj')"
+            @blur="aoSairCampo('cnpj')"
           />
           <AppInput
             v-model="form.inscricao_estadual"
@@ -283,6 +316,7 @@ async function salvar() {
             :disabled="enviando"
             :error="erros.telefone"
             @update:model-value="limparErro('telefone')"
+            @blur="aoSairCampo('telefone')"
           />
           <AppInput
             v-model="form.email"
@@ -294,6 +328,7 @@ async function salvar() {
             :disabled="enviando"
             :error="erros.email"
             @update:model-value="limparErro('email')"
+            @blur="aoSairCampo('email')"
           />
           <AppDatePicker
             v-model="form.data_inicio_relacionamento"
@@ -302,6 +337,8 @@ async function salvar() {
             required
             :disabled="enviando"
             :error="erros.data_inicio_relacionamento"
+            @update:model-value="revalidarCampo('data_inicio_relacionamento')"
+            @blur="aoSairCampo('data_inicio_relacionamento')"
           />
         </div>
       </section>
@@ -318,6 +355,8 @@ async function salvar() {
             required
             :disabled="enviando"
             :error="erros.limite_credito"
+            @update:model-value="limparErro('limite_credito')"
+            @blur="aoSairCampo('limite_credito')"
           />
         </div>
       </section>
@@ -336,6 +375,7 @@ async function salvar() {
             :disabled="enviando"
             :error="erros.cep"
             @update:model-value="limparErro('cep')"
+            @blur="aoSairCampo('cep')"
           />
           <AppSelect
             v-model="form.uf_id"
@@ -350,6 +390,8 @@ async function salvar() {
             :disabled="enviando"
             :error="erros.uf_id"
             filter
+            @update:model-value="revalidarCampo('uf_id')"
+            @blur="aoSairCampo('uf_id')"
           />
           <AppSelect
             v-model="form.municipio_id"
@@ -364,6 +406,8 @@ async function salvar() {
             :disabled="enviando || !form.uf_id"
             :error="erros.municipio_id"
             filter
+            @update:model-value="revalidarCampo('municipio_id')"
+            @blur="aoSairCampo('municipio_id')"
           />
           <AppInput
             v-model="form.bairro"
@@ -373,6 +417,7 @@ async function salvar() {
             :disabled="enviando"
             :error="erros.bairro"
             @update:model-value="limparErro('bairro')"
+            @blur="aoSairCampo('bairro')"
           />
           <AppInput
             v-model="form.logradouro"
@@ -382,6 +427,7 @@ async function salvar() {
             :disabled="enviando"
             :error="erros.logradouro"
             @update:model-value="limparErro('logradouro')"
+            @blur="aoSairCampo('logradouro')"
           />
           <AppInput
             v-model="form.numero"
@@ -392,6 +438,7 @@ async function salvar() {
             :error="erros.numero"
             hint="Use S/N se não houver número"
             @update:model-value="limparErro('numero')"
+            @blur="aoSairCampo('numero')"
           />
           <AppInput
             v-model="form.complemento"
