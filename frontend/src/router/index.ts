@@ -19,6 +19,16 @@ const routes: RouteRecordRaw[] = [
         name: 'parceiros',
         component: () => import('@/pages/ParceirosPage.vue'),
       },
+      {
+        path: 'parceiros/novo',
+        name: 'parceiros-novo',
+        component: () => import('@/pages/ParceiroFormPage.vue'),
+      },
+      {
+        path: 'parceiros/:id/editar',
+        name: 'parceiros-editar',
+        component: () => import('@/pages/ParceiroFormPage.vue'),
+      },
     ],
   },
   // Qualquer rota desconhecida cai na home (que por sua vez exige sessão).

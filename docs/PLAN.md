@@ -11,7 +11,7 @@ Status legend: `⬜` pendente · `🔄` em andamento · `✅` concluído
 | 3 | Modelagem do banco | ✅ | ADR-001 aprovado (documento) |
 | 4 | Migration | ✅ | `0003_*.sql` + volume no `docker-compose.yml` |
 | 5 | Design System | ✅ | Wrappers em `design-system/` + ADR-002 |
-| 6 | Listagem | ⬜ | Tabela + estados vazio/loading/erro |
+| 6 | Listagem | ✅ | Tabela + estados vazio/loading/erro |
 | 7 | Cadastro | ⬜ | Formulário create + persistência |
 | 8 | Edição | ⬜ | Load by id + update |
 | 9 | Validações | ⬜ | Frontend + erros de constraint (CNPJ etc.) |
@@ -58,9 +58,9 @@ Status legend: `⬜` pendente · `🔄` em andamento · `✅` concluído
 
 ## 6. Listagem
 
-- [ ] Tipos e função `listarParceiros()` via supabase-js.
-- [ ] Página ou seção listagem com wrapper de tabela.
-- [ ] Ação “Novo” e “Editar”; estado vazio com CTA.
+- [x] Tipos e função `listarParceiros()` via supabase-js.
+- [x] Página ou seção listagem com wrapper de tabela (`features/partners/PartnerList.vue`).
+- [x] Ação “Novo” e “Editar”; estado vazio com CTA (rotas `parceiros-novo` / `parceiros-editar` com stub de formulário).
 
 ## 7. Cadastro
 
