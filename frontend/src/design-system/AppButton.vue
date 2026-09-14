@@ -12,12 +12,14 @@ const props = withDefaults(
     loading?: boolean
     disabled?: boolean
     icon?: string
+    fluid?: boolean
   }>(),
   {
     variant: 'primary',
     type: 'button',
     loading: false,
     disabled: false,
+    fluid: false,
   },
 )
 
@@ -39,6 +41,7 @@ const outlined = computed(() => props.variant === 'secondary')
     :outlined="outlined"
     :loading="loading"
     :disabled="disabled"
+    :fluid="fluid"
   >
     <slot />
   </Button>

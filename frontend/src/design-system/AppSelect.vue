@@ -55,6 +55,7 @@ const emit = defineEmits<{
       :filter="filter"
       fluid
       :aria-describedby="describedBy"
+      :aria-invalid="invalid || undefined"
       :aria-required="required || undefined"
       @update:model-value="emit('update:modelValue', $event)"
       @blur="emit('blur')"

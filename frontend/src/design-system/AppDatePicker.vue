@@ -62,6 +62,7 @@ function onDateChange(value: Date | (Date | null)[] | Date[] | null | undefined)
       icon-display="input"
       fluid
       :aria-describedby="describedBy"
+      :aria-invalid="invalid || undefined"
       :aria-required="required || undefined"
       @update:model-value="onDateChange"
       @blur="emit('blur')"

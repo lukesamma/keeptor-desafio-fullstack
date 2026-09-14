@@ -15,8 +15,8 @@ Status legend: `⬜` pendente · `🔄` em andamento · `✅` concluído
 | 7 | Cadastro | ✅ | Formulário create + persistência |
 | 8 | Edição | ✅ | Load by id + update |
 | 9 | Validações | ✅ | Zod no frontend + erros de constraint (CNPJ etc.) |
-| 10 | Responsividade | ⬜ | Grid/form em mobile e desktop |
-| 11 | Acessibilidade | ⬜ | Labels, `aria-*`, foco, alertas |
+| 10 | Responsividade | ✅ | Grid/form em mobile e desktop |
+| 11 | Acessibilidade | ✅ | Labels, `aria-*`, foco, alertas |
 | 12 | Testes | ⬜ | Opcional: smoke manual + lint/build; Vitest se couber |
 | 13 | Documentação | 🔄 | PRD, PLAN, ADRs, AI-DEVELOPMENT |
 | 14 | Revisão final | ⬜ | README entrega, commits, smoke, checklist DoD |
@@ -83,16 +83,16 @@ Status legend: `⬜` pendente · `🔄` em andamento · `✅` concluído
 
 ## 10. Responsividade
 
-- [ ] Grid do formulário: 1 coluna em mobile, 2 em `sm`/`md` onde fizer sentido.
-- [ ] Listagem: scroll horizontal na tabela se necessário.
-- [ ] Alinhar espaçamento com `AppLayout` (max-width, padding).
+- [x] Grid do formulário: `grid-cols-1` + `sm:grid-cols-2`; botões `fluid` no mobile.
+- [x] `AppDataTable` com `overflow-x-auto` e `min-w` para scroll horizontal.
+- [x] `AppLayout` e features com `w-full`, `max-w-6xl`, `px-4 sm:px-6`.
 
 ## 11. Acessibilidade
 
-- [ ] Labels associados a inputs (`for` / `id`).
-- [ ] Erros com `role="alert"` ou `aria-describedby`.
-- [ ] Foco visível nos controles do design system.
-- [ ] Botões com texto claro (não só ícone).
+- [x] `AppFieldLayout`: `label` + `for`/`id`; obrigatório com `sr-only`.
+- [x] Erros `role="alert"` + `aria-describedby` / `aria-invalid` nos wrappers.
+- [x] Foco visível em `style.css` (controles PrimeVue) e links da listagem.
+- [x] Botões e ações com texto explícito (ex.: “Editar parceiro”).
 
 ## 12. Testes
 

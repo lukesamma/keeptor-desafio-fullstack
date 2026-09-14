@@ -24,6 +24,12 @@ defineExpose({ inputId, errorId, hintId, describedBy })
       >
         *
       </span>
+      <span
+        v-if="required"
+        class="sr-only"
+      >
+        (obrigatório)
+      </span>
     </label>
 
     <slot

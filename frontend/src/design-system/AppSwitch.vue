@@ -41,6 +41,7 @@ const emit = defineEmits<{
         :disabled="disabled || loading"
         :invalid="invalid"
         :aria-describedby="describedBy"
+        :aria-invalid="invalid || undefined"
         :aria-required="required || undefined"
         @update:model-value="emit('update:modelValue', $event)"
       />

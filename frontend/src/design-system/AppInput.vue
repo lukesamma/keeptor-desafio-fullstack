@@ -52,6 +52,7 @@ function onUpdate(value: string | undefined) {
       :autocomplete="autocomplete"
       fluid
       :aria-describedby="describedBy"
+      :aria-invalid="invalid || undefined"
       :aria-required="required || undefined"
       :pt="{ root: { type } }"
       @update:model-value="onUpdate"

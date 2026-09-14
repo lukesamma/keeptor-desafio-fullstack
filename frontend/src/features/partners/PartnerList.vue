@@ -19,7 +19,7 @@ const colunas: AppTableColumn[] = [
   { field: 'localidade', header: 'Cidade / UF' },
   { field: 'limite_credito', header: 'Limite de crédito' },
   { field: 'ativo', header: 'Ativo' },
-  { field: 'id', header: '' },
+  { field: 'id', header: 'Ações' },
 ]
 
 const linhasTabela = computed(() =>
@@ -29,7 +29,7 @@ const linhasTabela = computed(() =>
 </script>
 
 <template>
-  <div class="space-y-6">
+  <div class="w-full space-y-6">
     <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
       <div>
         <h1 class="text-xl font-semibold tracking-tight text-slate-900">
@@ -40,8 +40,14 @@ const linhasTabela = computed(() =>
         </p>
       </div>
 
-      <RouterLink :to="{ name: 'parceiros-novo' }">
-        <AppButton label="Novo parceiro" />
+      <RouterLink
+        class="w-full sm:w-auto"
+        :to="{ name: 'parceiros-novo' }"
+      >
+        <AppButton
+          fluid
+          label="Novo parceiro"
+        />
       </RouterLink>
     </div>
 
@@ -65,6 +71,7 @@ const linhasTabela = computed(() =>
         :value="linhasTabela"
         :columns="colunas"
         :loading="carregando"
+        aria-label="Lista de parceiros"
         empty-message="Nenhum parceiro cadastrado."
       >
         <template #cell-limite_credito="{ value }">
@@ -87,9 +94,9 @@ const linhasTabela = computed(() =>
         <template #cell-id="{ row }">
           <RouterLink
             :to="{ name: 'parceiros-editar', params: { id: String(row.id) } }"
-            class="text-sm font-medium text-slate-900 underline-offset-2 hover:underline"
+            class="inline-flex rounded text-sm font-medium text-slate-900 underline-offset-2 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2"
           >
-            Editar
+            Editar parceiro
           </RouterLink>
         </template>
       </AppDataTable>
@@ -101,8 +108,14 @@ const linhasTabela = computed(() =>
         <p class="text-sm text-slate-600">
           Comece cadastrando o primeiro parceiro.
         </p>
-        <RouterLink :to="{ name: 'parceiros-novo' }">
-          <AppButton label="Cadastrar parceiro" />
+        <RouterLink
+          class="w-full sm:w-auto"
+          :to="{ name: 'parceiros-novo' }"
+        >
+          <AppButton
+            fluid
+            label="Cadastrar parceiro"
+          />
         </RouterLink>
       </div>
     </template>

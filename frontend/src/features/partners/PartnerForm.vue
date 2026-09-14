@@ -178,7 +178,7 @@ async function salvar() {
 </script>
 
 <template>
-  <div class="space-y-6">
+  <div class="w-full space-y-6">
     <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
       <div>
         <h1 class="text-xl font-semibold tracking-tight text-slate-900">
@@ -192,13 +192,6 @@ async function salvar() {
           }}
         </p>
       </div>
-      <RouterLink :to="{ name: 'parceiros' }">
-        <AppButton
-          variant="secondary"
-          label="Cancelar"
-          :disabled="enviando"
-        />
-      </RouterLink>
     </div>
 
     <p
@@ -237,30 +230,20 @@ async function salvar() {
         <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-500">
           Situação do cadastro
         </h2>
-        <div
-          class="flex flex-col gap-4 rounded-lg border border-slate-200 bg-white p-4 sm:flex-row sm:items-center sm:justify-between"
-        >
-          <div class="space-y-1">
-            <p class="text-sm font-medium text-slate-900">
-              Parceiro ativo
-            </p>
-            <p class="text-xs text-slate-500">
-              Desative para manter o histórico sem tratar como parceiro em uso.
-            </p>
-          </div>
-          <AppSwitch
-            v-model="form.ativo"
-            name="ativo"
-            :disabled="enviando"
-          />
-        </div>
+        <AppSwitch
+          v-model="form.ativo"
+          name="ativo"
+          label="Parceiro ativo"
+          hint="Desative para manter o histórico sem tratar como parceiro em uso."
+          :disabled="enviando"
+        />
       </section>
 
       <section class="space-y-4">
         <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-500">
           Dados da empresa
         </h2>
-        <div class="grid gap-4 md:grid-cols-2">
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <AppInput
             v-model="form.razao_social"
             label="Razão social"
@@ -306,7 +289,7 @@ async function salvar() {
         <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-500">
           Contato
         </h2>
-        <div class="grid gap-4 md:grid-cols-2">
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <AppMaskedInput
             v-model="form.telefone"
             label="Telefone"
@@ -347,7 +330,7 @@ async function salvar() {
         <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-500">
           Limite de crédito
         </h2>
-        <div class="grid gap-4 md:grid-cols-2">
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <AppCurrencyInput
             v-model="form.limite_credito"
             label="Valor em reais"
@@ -365,7 +348,7 @@ async function salvar() {
         <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-500">
           Endereço
         </h2>
-        <div class="grid gap-4 md:grid-cols-2">
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <AppMaskedInput
             v-model="form.cep"
             label="CEP"
@@ -451,15 +434,21 @@ async function salvar() {
       </section>
 
       <div class="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
-        <RouterLink :to="{ name: 'parceiros' }">
+        <RouterLink
+          class="w-full sm:w-auto"
+          :to="{ name: 'parceiros' }"
+        >
           <AppButton
             variant="secondary"
             label="Cancelar"
+            fluid
             :disabled="enviando"
           />
         </RouterLink>
         <AppButton
           type="submit"
+          class="w-full sm:w-auto"
+          fluid
           :label="isEdicao ? 'Salvar alterações' : 'Salvar parceiro'"
           :loading="enviando"
           :disabled="enviando"

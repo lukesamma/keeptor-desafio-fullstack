@@ -54,6 +54,7 @@ function onUpdate(value: string | undefined) {
       :placeholder="placeholder"
       fluid
       :aria-describedby="describedBy"
+      :aria-invalid="invalid || undefined"
       :aria-required="required || undefined"
       @update:model-value="onUpdate"
       @blur="emit('blur')"
