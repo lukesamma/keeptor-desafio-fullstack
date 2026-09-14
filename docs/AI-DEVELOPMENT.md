@@ -38,7 +38,7 @@ Se isso mudar, registrar abaixo na seção **Histórico**.
 | Análise sem alterar código | Sim | ✅ Relatório de arquitetura no chat |
 | Documentação (`docs/`) | Antes da migration | ✅ PRD, PLAN, ADR-001, ADR-002, AI-DEVELOPMENT |
 | Migration `0003` | Após ADR-001 | ✅ `0003_parceiros.sql` + reset + smoke |
-| Design system | Após ADR-002 | ⬜ Pendente |
+| Design system | Após ADR-002 | ✅ wrappers + lint/build |
 | Feature parceiros | Vertical (cadastro → edição → lista) | ⬜ Pendente |
 
 ## Onde a IA acertou de primeira
@@ -74,6 +74,7 @@ O desenvolvedor deve:
 |------|-----------|
 | 2026-03-13 | Versão inicial após análise do repo e criação dos documentos em `docs/` |
 | 2026-03-14 | Migration `0003_parceiros.sql`, volume no compose, reset e smoke 10/10 |
+| 2026-03-14 | Fase 5: design system (`App*` + `useAppToast`, `AppToastHost` em `App.vue`) |
 
 ---
 

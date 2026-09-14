@@ -10,7 +10,7 @@ Status legend: `⬜` pendente · `🔄` em andamento · `✅` concluído
 | 2 | Análise da arquitetura | ✅ | Análise no chat + este PLAN/PRD |
 | 3 | Modelagem do banco | ✅ | ADR-001 aprovado (documento) |
 | 4 | Migration | ✅ | `0003_*.sql` + volume no `docker-compose.yml` |
-| 5 | Design System | ⬜ | Wrappers em `design-system/` + ADR-002 |
+| 5 | Design System | ✅ | Wrappers em `design-system/` + ADR-002 |
 | 6 | Listagem | ⬜ | Tabela + estados vazio/loading/erro |
 | 7 | Cadastro | ⬜ | Formulário create + persistência |
 | 8 | Edição | ⬜ | Load by id + update |
@@ -50,11 +50,11 @@ Status legend: `⬜` pendente · `🔄` em andamento · `✅` concluído
 
 ## 5. Design System
 
-- [ ] Definir contrato comum (props/eventos) → **ADR-002**.
-- [ ] Implementar wrappers na ordem de dependência do formulário:
-  - texto, máscara (CNPJ, telefone, CEP), e-mail, data, moeda, switch, select, botão, feedback (toast/mensagem), tabela.
-- [ ] `npm run lint` a cada componente novo.
-- [ ] Documentar tabela de contrato no README ou ADR-002.
+- [x] Definir contrato comum (props/eventos) → **ADR-002** + `fieldTypes.ts`.
+- [x] Implementar wrappers na ordem de dependência do formulário:
+  - `AppInput`, `AppMaskedInput`, `AppDatePicker`, `AppCurrencyInput`, `AppSwitch`, `AppSelect`, `AppButton`, `useAppToast` + `AppToastHost`, `AppDataTable`.
+- [x] `npm run lint` / `typecheck` / `build` OK.
+- [x] Documentar contrato em `design-system/README.md` e ADR-002.
 
 ## 6. Listagem
 

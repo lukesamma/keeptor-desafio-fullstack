@@ -147,4 +147,28 @@ Ordem sugerida (ver `docs/PLAN.md`):
 4. `AppDataTable` + empty/loading.
 5. `PartnerForm` / listagem.
 
-Atualizar este ADR com tabela final de props quando os componentes existirem.
+## Implementação (v1 — 2026-03-14)
+
+Arquivos em `frontend/src/design-system/`:
+
+| Arquivo | Papel |
+|---------|--------|
+| `fieldTypes.ts` | `AppFieldProps`, `AppButtonVariant` |
+| `useFieldIds.ts` | `id` / `aria-describedby` |
+| `AppFieldLayout.vue` | Label, erro, hint (interno aos campos) |
+| `AppInput.vue` | `InputText` |
+| `AppMaskedInput.vue` | `InputMask` (`unmask` padrão `true`) |
+| `AppDatePicker.vue` | `DatePicker` (`dd/mm/yy`) |
+| `AppCurrencyInput.vue` | `InputNumber` BRL |
+| `AppSwitch.vue` | `ToggleSwitch` |
+| `AppSelect.vue` | `Select` |
+| `AppButton.vue` | `Button` |
+| `AppDataTable.vue` | `DataTable` + `Column` |
+| `AppToastHost.vue` | `Toast` (em `App.vue`) |
+| `useAppToast.ts` | API `success` / `error` / … |
+| `masks.ts` | `MASK_CNPJ`, `MASK_TELEFONE`, `MASK_CEP` |
+| `index.ts` | Reexport público |
+
+**Desvio v1:** `AppSelect` não expõe spinner nativo (PrimeVue `Select` sem prop `loading`); `loading` desabilita o controle e altera o `hint` para “Carregando opções…”.
+
+**Troca de biblioteca:** ~12 arquivos em `design-system/` + `main.ts` + `eslint.config.ts` + `App.vue` (`AppToastHost`); páginas de parceiros ainda não importam PrimeVue.

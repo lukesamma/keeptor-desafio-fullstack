@@ -1,6 +1,8 @@
 # `src/design-system/`
 
-Esta pasta está vazia de propósito. **O design system é o seu trabalho.**
+Wrappers sobre o PrimeVue 4. **Páginas importam apenas daqui** (`@/design-system` ou `@/design-system/...`).
+
+Contrato completo: `docs/ADR-002-design-system.md`.
 
 ## O que vive aqui
 
@@ -31,5 +33,19 @@ UI. Trocar ou atualizar o PrimeVue, padronizar espaçamento, aplicar identidade
 visual e corrigir acessibilidade acontecem em um ponto só, em vez de espalhados
 por dezenas de telas.
 
-Nenhum componente de exemplo é fornecido. Qualquer exemplo viraria gabarito, e
-o que interessa é a interface que **você** desenha para os seus componentes.
+## Componentes (v1)
+
+| Export | Uso |
+|--------|-----|
+| `AppInput` | Texto, e-mail |
+| `AppMaskedInput` | CNPJ, telefone, CEP (`MASK_*` em `masks.ts`) |
+| `AppDatePicker` | Data (pt-BR) |
+| `AppCurrencyInput` | Real (BRL) |
+| `AppSwitch` | Booleano (ex.: ativo) |
+| `AppSelect` | UF, município |
+| `AppButton` | Ações (`variant`: primary / secondary / danger) |
+| `AppDataTable` | Listagem simples |
+| `AppToastHost` | Montado em `App.vue` |
+| `useAppToast()` | Feedback global (success / error / …) |
+
+Campos compartilham props de `AppFieldProps`: `label`, `error`, `hint`, `disabled`, `loading`, `required`, `name`, `id`.

@@ -496,6 +496,25 @@ npm run smoke
 
 E executar os scripts de qualidade disponíveis no `package.json`.
 
+## Organização arquitetural
+
+Adotar arquitetura orientada a features combinada com Design System.
+
+- `design-system/`: componentes visuais reutilizáveis e wrappers PrimeVue.
+- `features/`: regras e componentes específicos de cada domínio.
+- `pages/`: composição de páginas e integração com router.
+- `services/`: infraestrutura compartilhada.
+- `composables/`: lógica transversal reutilizável.
+- `types/`: tipos compartilhados.
+- `utils/`: funções utilitárias sem conhecimento de domínio.
+
+Antes de criar um novo arquivo, determinar se ele:
+1. pertence ao Design System;
+2. pertence a uma feature específica;
+3. é infraestrutura compartilhada.
+
+Não criar abstrações antecipadamente apenas por organização.
+
 ## Definition of Done
 
 O desafio só deve ser considerado concluído quando:
