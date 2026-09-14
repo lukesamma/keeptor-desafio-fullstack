@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, reactive, ref, toRef } from 'vue'
+import { computed, onMounted, reactive, ref, toRef } from 'vue'
 import { RouterLink } from 'vue-router'
 
 import { useUfMunicipio } from '@/composables/useUfMunicipio'
@@ -10,40 +10,95 @@ import {
   AppInput,
   AppMaskedInput,
   AppSelect,
+  AppSwitch,
   MASK_CEP,
   MASK_CNPJ,
   MASK_TELEFONE,
   useAppToast,
 } from '@/design-system'
 import { ApiError, isErroCnpjDuplicado } from '@/services/apiError'
-import { criarParceiro } from '@/services/partnersService'
+import {
+  atualizarParceiro,
+  buscarParceiroPorId,
+  criarParceiro,
+} from '@/services/partnersService'
 import {
   criarParceiroFormVazio,
   parceiroFormParaInsert,
+  parceiroFormParaUpdate,
+  parceiroRegistroParaForm,
 } from '@/types/partnerForm'
 import {
   type ErrosParceiroForm,
   validarParceiroForm,
 } from '@/utils/partnerValidation'
 
+const props = defineProps<{
+  mode: 'create' | 'edit'
+  parceiroId?: string
+}>()
+
 const emit = defineEmits<{
   success: []
 }>()
+
+const isEdicao = computed(() => props.mode === 'edit')
 
 const toast = useAppToast()
 const form = reactive(criarParceiroFormVazio())
 const erros = ref<ErrosParceiroForm>({})
 const enviando = ref(false)
+const carregandoRegistro = ref(false)
 const erroGeral = ref('')
 
 const ufId = toRef(form, 'uf_id')
 const municipioId = toRef(form, 'municipio_id')
 
-const { ufs, municipios, carregandoUfs, carregandoMunicipios, erroGeo, carregarUfs } =
-  useUfMunicipio(ufId, municipioId)
+const {
+  ufs,
+  municipios,
+  carregandoUfs,
+  carregandoMunicipios,
+  erroGeo,
+  carregarUfs,
+  carregarMunicipios,
+} = useUfMunicipio(ufId, municipioId)
+
+async function carregarParaEdicao() {
+  if (!props.parceiroId) return
+
+  carregandoRegistro.value = true
+  erroGeral.value = ''
+
+  try {
+    await carregarUfs()
+    const registro = await buscarParceiroPorId(props.parceiroId)
+    const dados = parceiroRegistroParaForm(registro)
+    const uf = dados.uf_id
+    const municipio = dados.municipio_id
+
+    Object.assign(form, { ...dados, uf_id: null, municipio_id: null })
+
+    if (uf) {
+      form.uf_id = uf
+      await carregarMunicipios(uf)
+      form.municipio_id = municipio
+    }
+  } catch (e) {
+    erroGeral.value =
+      e instanceof Error ? e.message : 'Não foi possível carregar o parceiro.'
+    toast.error('Falha ao carregar', erroGeral.value)
+  } finally {
+    carregandoRegistro.value = false
+  }
+}
 
 onMounted(() => {
-  void carregarUfs()
+  if (isEdicao.value) {
+    void carregarParaEdicao()
+  } else {
+    void carregarUfs()
+  }
 })
 
 function limparErro(campo: keyof ErrosParceiroForm) {
@@ -67,9 +122,15 @@ async function salvar() {
   enviando.value = true
 
   try {
-    const payload = parceiroFormParaInsert(form)
-    await criarParceiro(payload)
-    toast.success('Parceiro cadastrado', 'O registro foi salvo com sucesso.')
+    if (isEdicao.value && props.parceiroId) {
+      const payload = parceiroFormParaUpdate(form)
+      await atualizarParceiro(props.parceiroId, payload)
+      toast.success('Parceiro atualizado', 'As alterações foram salvas.')
+    } else {
+      const payload = parceiroFormParaInsert(form)
+      await criarParceiro(payload)
+      toast.success('Parceiro cadastrado', 'O registro foi salvo com sucesso.')
+    }
     emit('success')
   } catch (e) {
     if (e instanceof ApiError && isErroCnpjDuplicado(e)) {
@@ -91,10 +152,14 @@ async function salvar() {
     <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
       <div>
         <h1 class="text-xl font-semibold tracking-tight text-slate-900">
-          Novo parceiro
+          {{ isEdicao ? 'Editar parceiro' : 'Novo parceiro' }}
         </h1>
         <p class="mt-1 text-sm text-slate-500">
-          Preencha os dados cadastrais e de endereço.
+          {{
+            isEdicao
+              ? 'Atualize os dados cadastrais e de endereço.'
+              : 'Preencha os dados cadastrais e de endereço.'
+          }}
         </p>
       </div>
       <RouterLink :to="{ name: 'parceiros' }">
@@ -122,11 +187,44 @@ async function salvar() {
       {{ erroGeo }}
     </p>
 
+    <p
+      v-if="carregandoRegistro"
+      class="text-sm text-slate-500"
+    >
+      Carregando dados do parceiro…
+    </p>
+
     <form
+      v-else
       class="space-y-8"
       novalidate
       @submit.prevent="salvar"
     >
+      <section
+        v-if="isEdicao"
+        class="space-y-3"
+      >
+        <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-500">
+          Situação do cadastro
+        </h2>
+        <div
+          class="flex flex-col gap-4 rounded-lg border border-slate-200 bg-white p-4 sm:flex-row sm:items-center sm:justify-between"
+        >
+          <div class="space-y-1">
+            <p class="text-sm font-medium text-slate-900">
+              Parceiro ativo
+            </p>
+            <p class="text-xs text-slate-500">
+              Desative para manter o histórico sem tratar como parceiro em uso.
+            </p>
+          </div>
+          <AppSwitch
+            v-model="form.ativo"
+            name="ativo"
+            :disabled="enviando"
+          />
+        </div>
+      </section>
 
       <section class="space-y-4">
         <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-500">
@@ -157,7 +255,7 @@ async function salvar() {
             name="cnpj"
             :mask="MASK_CNPJ"
             required
-            :disabled="enviando"
+            :disabled="enviando || carregandoRegistro"
             :error="erros.cnpj"
             @update:model-value="limparErro('cnpj')"
           />
@@ -315,7 +413,7 @@ async function salvar() {
         </RouterLink>
         <AppButton
           type="submit"
-          label="Salvar parceiro"
+          :label="isEdicao ? 'Salvar alterações' : 'Salvar parceiro'"
           :loading="enviando"
           :disabled="enviando"
         />

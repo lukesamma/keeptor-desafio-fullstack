@@ -27,6 +27,17 @@ export interface MunicipioResumo {
   } | null
 }
 
+export interface MunicipioParceiroDetalhe {
+  id: number
+  nome: string
+  uf_id: number
+}
+
+/** Registro completo para edição (embed de município com UF). */
+export interface ParceiroEdicao extends Parceiro {
+  municipio: MunicipioParceiroDetalhe | null
+}
+
 /** Linha retornada por `listarParceiros()` com município embutido. */
 export interface ParceiroListagem {
   id: string

@@ -17,6 +17,9 @@ export function mensagemErroSupabase(erro: PostgrestError): string {
   if (erro.code === '42501') {
     return 'Sem permissão para acessar estes dados.'
   }
+  if (erro.code === 'PGRST116') {
+    return 'Parceiro não encontrado.'
+  }
   if (erro.code === '23505' || erro.message.includes('parceiro_cnpj_unico')) {
     return 'Já existe um parceiro cadastrado com este CNPJ.'
   }

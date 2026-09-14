@@ -1,4 +1,5 @@
-import { formatarDataIso } from '@/utils/date'
+import type { ParceiroEdicao } from '@/types/partner'
+import { formatarDataIso, parseDataIso } from '@/utils/date'
 import { apenasDigitos } from '@/utils/digits'
 
 export interface ParceiroFormModel {
@@ -20,6 +21,8 @@ export interface ParceiroFormModel {
   complemento: string
 }
 
+export type ParceiroUpdatePayload = ParceiroInsertPayload
+
 export interface ParceiroInsertPayload {
   razao_social: string
   nome_fantasia: string
@@ -38,7 +41,10 @@ export interface ParceiroInsertPayload {
   complemento: string | null
 }
 
-export function parceiroFormParaInsert(form: ParceiroFormModel): ParceiroInsertPayload {
+function parceiroFormParaPayload(
+  form: ParceiroFormModel,
+  ativo: boolean,
+): ParceiroInsertPayload {
   if (!form.data_inicio_relacionamento || !form.municipio_id) {
     throw new Error('Formulário incompleto para envio.')
   }
@@ -55,14 +61,45 @@ export function parceiroFormParaInsert(form: ParceiroFormModel): ParceiroInsertP
     email: form.email.trim(),
     data_inicio_relacionamento: formatarDataIso(form.data_inicio_relacionamento),
     limite_credito: form.limite_credito ?? 0,
-    // Cadastro: sempre ativo (DEFAULT no banco; edição trata inativação na fase 8).
-    ativo: true,
+    ativo,
     municipio_id: form.municipio_id,
     cep: apenasDigitos(form.cep),
     bairro: form.bairro.trim(),
     logradouro: form.logradouro.trim(),
     numero: form.numero.trim(),
     complemento: complemento ? complemento : null,
+  }
+}
+
+/** Cadastro: sempre ativo. */
+export function parceiroFormParaInsert(form: ParceiroFormModel): ParceiroInsertPayload {
+  return parceiroFormParaPayload(form, true)
+}
+
+export function parceiroFormParaUpdate(form: ParceiroFormModel): ParceiroUpdatePayload {
+  return parceiroFormParaPayload(form, form.ativo)
+}
+
+export function parceiroRegistroParaForm(registro: ParceiroEdicao): ParceiroFormModel {
+  const ufId = registro.municipio?.uf_id ?? null
+
+  return {
+    razao_social: registro.razao_social,
+    nome_fantasia: registro.nome_fantasia,
+    cnpj: registro.cnpj.trim(),
+    inscricao_estadual: registro.inscricao_estadual ?? '',
+    telefone: registro.telefone,
+    email: registro.email,
+    data_inicio_relacionamento: parseDataIso(registro.data_inicio_relacionamento),
+    limite_credito: Number(registro.limite_credito),
+    ativo: registro.ativo,
+    uf_id: ufId,
+    municipio_id: registro.municipio_id,
+    cep: registro.cep.trim(),
+    bairro: registro.bairro,
+    logradouro: registro.logradouro,
+    numero: registro.numero,
+    complemento: registro.complemento ?? '',
   }
 }
 

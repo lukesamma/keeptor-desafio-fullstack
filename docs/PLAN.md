@@ -13,7 +13,7 @@ Status legend: `⬜` pendente · `🔄` em andamento · `✅` concluído
 | 5 | Design System | ✅ | Wrappers em `design-system/` + ADR-002 |
 | 6 | Listagem | ✅ | Tabela + estados vazio/loading/erro |
 | 7 | Cadastro | ✅ | Formulário create + persistência |
-| 8 | Edição | ⬜ | Load by id + update |
+| 8 | Edição | ✅ | Load by id + update |
 | 9 | Validações | ⬜ | Frontend + erros de constraint (CNPJ etc.) |
 | 10 | Responsividade | ⬜ | Grid/form em mobile e desktop |
 | 11 | Acessibilidade | ⬜ | Labels, `aria-*`, foco, alertas |
@@ -71,9 +71,9 @@ Status legend: `⬜` pendente · `🔄` em andamento · `✅` concluído
 
 ## 8. Edição
 
-- [ ] Rota ou modo `editar/:id`.
-- [ ] Carregar registro; preencher UF antes de municípios.
-- [ ] Update via supabase-js; tratar `updated_at` se existir.
+- [x] Rota `/parceiros/:id/editar` + `PartnerForm` modo `edit`.
+- [x] Carregar registro; UF antes de municípios (`carregarMunicipios` após `uf_id`).
+- [x] `atualizarParceiro` via supabase-js; `updated_at` no trigger do Postgres.
 
 ## 9. Validações
 

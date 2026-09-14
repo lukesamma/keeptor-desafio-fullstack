@@ -68,5 +68,6 @@ export function useUfMunicipio(ufId: Ref<number | null>, municipioId: Ref<number
     carregandoMunicipios,
     erroGeo,
     carregarUfs,
+    carregarMunicipios,
   }
 }
