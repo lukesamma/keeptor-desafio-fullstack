@@ -18,7 +18,7 @@ Status legend: `⬜` pendente · `🔄` em andamento · `✅` concluído
 | 10 | Responsividade | ✅ | Grid/form em mobile e desktop |
 | 11 | Acessibilidade | ✅ | Labels, `aria-*`, foco, alertas |
 | 12 | Testes | ✅ | `npm run check` + Vitest; smoke separado |
-| 13 | Documentação | 🔄 | PRD, PLAN, ADRs, AI-DEVELOPMENT |
+| 13 | Documentação | ✅ | README entrega + índice `docs/` + AI-DEVELOPMENT |
 | 14 | Revisão final | ⬜ | README entrega, commits, smoke, checklist DoD |
 
 ---
@@ -60,7 +60,7 @@ Status legend: `⬜` pendente · `🔄` em andamento · `✅` concluído
 
 - [x] Tipos e função `listarParceiros()` via supabase-js.
 - [x] Página ou seção listagem com wrapper de tabela (`features/partners/PartnerList.vue`).
-- [x] Ação “Novo” e “Editar”; estado vazio com CTA (rotas `parceiros-novo` / `parceiros-editar` com stub de formulário).
+- [x] Ação “Novo” e “Editar”; estado vazio com CTA (rotas `parceiros-novo` / `parceiros-editar`).
 
 ## 7. Cadastro
 
@@ -104,9 +104,10 @@ Status legend: `⬜` pendente · `🔄` em andamento · `✅` concluído
 
 ## 13. Documentação
 
-- [x] PRD, PLAN, ADR-001, ADR-002, AI-DEVELOPMENT (rascunho inicial).
-- [ ] Atualizar PLAN (status) e AI-DEVELOPMENT ao longo do desenvolvimento.
-- [ ] README raiz: o que foi feito, fora do escopo, melhorias com mais tempo.
+- [x] PRD, PLAN, ADR-001, ADR-002, ADR-003, AI-DEVELOPMENT.
+- [x] PLAN com status por fase; AI-DEVELOPMENT com histórico até testes/Storybook.
+- [x] README raiz: seção **Implementação (entrega)** (feito, fora do escopo, próximos passos).
+- [x] `docs/README.md` como índice dos artefatos.
 
 ## 14. Revisão final
 
@@ -131,5 +132,7 @@ Se o tempo apertar, cortar na ordem: testes automatizados → Storybook → poli
 | Data | Mudança | Motivo |
 |------|---------|--------|
 | 2026-03-13 | Criação do PLAN | Baseline do desafio após análise do repositório |
+| 2026-03-14 | Fases 6–12 | CRUD parceiros, Zod, a11y/responsivo, Vitest/Storybook/Playwright |
+| 2026-03-14 | Fase 13 | README de entrega + índice `docs/` + AI-DEVELOPMENT atualizado |
 
 Registrar aqui qualquer desvio relevante antes de implementar.
