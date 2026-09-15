@@ -53,6 +53,7 @@ services:
       # (O usuário demo NÃO é criado aqui; veja o serviço auth-seed no fim.)
       - ./migrations/0001_geo.sql:/docker-entrypoint-initdb.d/migrations/99-0001-geo.sql:ro
       - ./migrations/0002_seed_ibge.sql:/docker-entrypoint-initdb.d/migrations/99-0002-seed-ibge.sql:ro
+      - ./migrations/0003_parceiros.sql:/docker-entrypoint-initdb.d/migrations/99-0003-parceiros.sql:ro
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "postgres", "-h", "localhost"]
       interval: 5s

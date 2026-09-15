@@ -12,6 +12,9 @@
 # Node
 node_modules/
 dist/
+frontend/storybook-static/
+frontend/test-results/
+frontend/playwright-report/
 *.log
 
 # macOS

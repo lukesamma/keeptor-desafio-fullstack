@@ -7,7 +7,9 @@
 <template>
   <div class="flex min-h-full flex-col bg-slate-50">
     <header class="border-b border-slate-200 bg-white">
-      <div class="mx-auto flex h-14 w-full max-w-6xl items-center justify-between gap-4 px-4">
+      <div
+        class="mx-auto flex h-14 w-full max-w-6xl items-center justify-between gap-4 px-4 sm:px-6"
+      >
         <span class="text-sm font-semibold tracking-tight text-slate-900">
           Desafio Fullstack Keeptor
         </span>
@@ -25,7 +27,7 @@
       </div>
     </header>
 
-    <main class="mx-auto w-full max-w-6xl flex-1 px-4 py-6">
+    <main class="mx-auto w-full max-w-6xl flex-1 px-4 py-6 sm:px-6">
       <RouterView />
     </main>
   </div>

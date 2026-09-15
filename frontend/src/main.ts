@@ -17,6 +17,10 @@ createApp(App)
     theme: {
       preset: Aura,
       options: {
+        // Padrão do PrimeVue é `system` (@media prefers-color-scheme: dark).
+        // Desligado para alinhar com o layout Tailwind (sempre claro).
+        // https://primevue.org/theming/styled/#darkmode
+        darkModeSelector: false,
         // Mantém a camada `primevue` depois de `theme`/`base` e antes das
         // utilities do Tailwind, para que as classes utilitárias consigam
         // sobrescrever o estilo dos componentes sem `!important`.

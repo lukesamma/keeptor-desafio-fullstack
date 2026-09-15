@@ -2,7 +2,58 @@
 
 Olá! Se você chegou aqui, é porque avançou no processo da vaga de **Desenvolvedor Fullstack Vue.js / PostgreSQL** da Keeptor. Obrigado pelo seu tempo, sabemos que ele é caro.
 
-Este repositório já é um ponto de partida pronto. Ambiente, banco e login funcionam. O que falta é o seu trabalho.
+Este repositório já é um ponto de partida pronto. Ambiente, banco e login funcionam. A implementação do módulo de parceiros está descrita na seção [**Implementação (entrega)**](#-implementação-entrega) abaixo.
+
+---
+
+## ✅ Implementação (entrega)
+
+Resumo do que foi desenvolvido neste fork, para o avaliador.
+
+### O que foi feito
+
+| Área | Entrega |
+|------|---------|
+| **Banco** | Migration [`backend/migrations/0003_parceiros.sql`](backend/migrations/0003_parceiros.sql): tabela `parceiro`, CHECK/UNIQUE (CNPJ), RLS para `authenticated`, trigger `updated_at`. Decisões em [`docs/ADR-001-modelagem-parceiros.md`](docs/ADR-001-modelagem-parceiros.md). |
+| **Design system** | Wrappers em [`frontend/src/design-system/`](frontend/src/design-system/) (contrato em [`docs/ADR-002-design-system.md`](docs/ADR-002-design-system.md)). PrimeVue só em `design-system/` e `main.ts` (ESLint). |
+| **Frontend** | Listagem, cadastro e edição em [`frontend/src/features/partners/`](frontend/src/features/partners/); rotas em [`frontend/src/router/index.ts`](frontend/src/router/index.ts). Estrutura em [`docs/ADR-003-estrutura-do-frontend.md`](docs/ADR-003-estrutura-do-frontend.md). |
+| **Validação** | Zod ([`frontend/src/schemas/partnerFormSchema.ts`](frontend/src/schemas/partnerFormSchema.ts)) + mensagens de constraint PostgREST ([`frontend/src/services/apiError.ts`](frontend/src/services/apiError.ts)). |
+| **UX** | Responsividade (grid `sm:`, tabela com scroll horizontal), a11y (labels, `aria-*`, foco visível). |
+| **Testes** | `npm run check` (lint, typecheck, Vitest, build); `npm run smoke` (ambiente); Storybook (`npm run storybook`); Playwright (`npm run playwright:install` + `npm run test:e2e`). |
+| **Processo** | [`docs/PRD.md`](docs/PRD.md), [`docs/PLAN.md`](docs/PLAN.md), [`docs/AI-DEVELOPMENT.md`](docs/AI-DEVELOPMENT.md), skill em [`.cursor/skills/keeptor-fullstack-challenge/`](.cursor/skills/keeptor-fullstack-challenge/). |
+
+**Credencial local:** `desafio@keeptor.com` / `desafio123` → menu **Parceiros** → listar, **Novo parceiro**, **Editar parceiro**.
+
+### Fora do escopo (consciente)
+
+- **Login** continua com HTML nativo + Tailwind (boilerplate); não foi migrado para o design system.
+- Listagem **sem** filtros, ordenação customizada ou paginação no servidor.
+- **Sem** exclusão física de parceiro; edição permite desativar (`ativo`).
+- Formulário em **página dedicada**, não modal.
+- E2E cobre **login → listagem → tela de novo parceiro**; não automatiza cadastro completo com UF/município reais.
+- Sem seed versionado de parceiros de exemplo no repositório.
+
+Ambiguidades do enunciado (endereço único, CNPJ único, bairro texto livre, etc.) estão registradas no **ADR-001** e no **PRD**.
+
+### Com mais tempo
+
+- Migrar `LoginPage` para os wrappers do design system.
+- E2E: fluxo completo de cadastro/edição e cenário de CNPJ duplicado concorrente.
+- Pipeline CI (`check` + smoke em PR).
+- Paginação ou busca na listagem, se o volume de dados crescer.
+- `vue-component-meta` no Storybook (aviso de depreciação do `vue-docgen-api`).
+
+### Comandos úteis (além do “Como rodar”)
+
+```bash
+npm run check              # lint + typecheck + Vitest + build (frontend)
+npm run smoke              # 10 verificações do ambiente Docker/API
+npm run storybook          # catálogo dos componentes (porta 6006)
+npm run playwright:install # primeira vez / após atualizar @playwright/test
+npm run test:e2e           # E2E (precisa Docker + smoke OK)
+```
+
+Índice da pasta `docs/`: [`docs/README.md`](docs/README.md).
 
 ---
 
