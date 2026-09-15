@@ -19,7 +19,7 @@ Status legend: `⬜` pendente · `🔄` em andamento · `✅` concluído
 | 11 | Acessibilidade | ✅ | Labels, `aria-*`, foco, alertas |
 | 12 | Testes | ✅ | `npm run check` + Vitest; smoke separado |
 | 13 | Documentação | ✅ | README entrega + índice `docs/` + AI-DEVELOPMENT |
-| 14 | Revisão final | ⬜ | README entrega, commits, smoke, checklist DoD |
+| 14 | Revisão final | ✅ | `docs/REVISAO-FINAL.md`, check + smoke 10/10 |
 
 ---
 
@@ -111,10 +111,10 @@ Status legend: `⬜` pendente · `🔄` em andamento · `✅` concluído
 
 ## 14. Revisão final
 
-- [ ] Checklist Definition of Done da skill `.cursor/skills/keeptor-fullstack-challenge/`.
-- [ ] Revisar `.cursor/` sem secrets.
-- [ ] Commits semânticos ao longo do histórico (não um único commit).
-- [ ] Passar smoke e login manual antes de entregar.
+- [x] DoD da skill — checklist em [`docs/REVISAO-FINAL.md`](REVISAO-FINAL.md).
+- [x] `.cursor/` — só `skills/keeptor-fullstack-challenge/SKILL.md`; sem MCP/tokens.
+- [x] Commits semânticos na branch `feat/partners` (11+ commits após baseline).
+- [x] `npm run check` + `npm run smoke` 10/10 (2026-03-14); login manual descrito em REVISAO-FINAL.
 
 ---
 
@@ -134,5 +134,6 @@ Se o tempo apertar, cortar na ordem: testes automatizados → Storybook → poli
 | 2026-03-13 | Criação do PLAN | Baseline do desafio após análise do repositório |
 | 2026-03-14 | Fases 6–12 | CRUD parceiros, Zod, a11y/responsivo, Vitest/Storybook/Playwright |
 | 2026-03-14 | Fase 13 | README de entrega + índice `docs/` + AI-DEVELOPMENT atualizado |
+| 2026-03-14 | Fase 14 | `REVISAO-FINAL.md`, DoD + check + smoke 10/10 |
 
 Registrar aqui qualquer desvio relevante antes de implementar.

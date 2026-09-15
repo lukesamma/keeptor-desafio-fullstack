@@ -78,3 +78,4 @@ Documento honesto sobre como a IA foi usada no desafio Keeptor.
 | 2026-03-14 | Zod, responsividade, a11y |
 | 2026-03-14 | Vitest, `npm run check`, Storybook, Playwright E2E |
 | 2026-03-14 | Fase 13: README entrega, índice `docs/`, este arquivo consolidado |
+| 2026-03-14 | Fase 14: `REVISAO-FINAL.md`, `npm run check` + smoke 10/10 |

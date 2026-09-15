@@ -12,6 +12,7 @@ Documentação produzida durante o desafio Keeptor Fullstack.
 | [ADR-002-design-system.md](ADR-002-design-system.md) | Contrato dos wrappers PrimeVue, mapa de componentes |
 | [ADR-003-estrutura-do-frontend.md](ADR-003-estrutura-do-frontend.md) | `features/`, `services/`, `pages/`, regras de import |
 | [AI-DEVELOPMENT.md](AI-DEVELOPMENT.md) | Ferramentas de IA, skill Cursor, ordem real vs planejada |
+| [REVISAO-FINAL.md](REVISAO-FINAL.md) | DoD, secrets, smoke/check, checklist antes do push |
 
 ## Setup de AI
 
